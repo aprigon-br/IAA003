@@ -3,13 +3,15 @@
 Trabalho final da disciplina **Probabilidade e Estatística para IA (IAA003)**, pós-graduação em IA Avançada:
 amostragem, intervalos de confiança e testes de hipóteses, comparando população e amostra.
 
-> **Links dos painéis:** *(serão incluídos após a publicação)*
-> 1. Análise descritiva da população
-> 2. Análise descritiva da amostra
-> 3. Inferência estatística e comparação dos resultados
+> **Painéis (Streamlit Cloud):** https://iaa003-buscas.streamlit.app
+> 1. Análise descritiva da população: https://iaa003-buscas.streamlit.app/populacao
+> 2. Análise descritiva da amostra: https://iaa003-buscas.streamlit.app/amostra
+> 3. Inferência estatística e comparação dos resultados: https://iaa003-buscas.streamlit.app/inferencia
 >
 > **Extra (análise exploratória):** "Onde vale a pena anunciar?", com oportunidades por nicho, custo do clique, buscas
-> "perto de mim" e competição × custo. Usa o mesmo `dataset.txt`.
+> "perto de mim" e competição × custo. Usa o mesmo `dataset.txt`: https://iaa003-buscas.streamlit.app/onde-anunciar
+>
+> **Base de dados:** [`dataset.txt`](https://github.com/aprigon-br/IAA003/blob/main/dataset.txt)
 
 ---
 
