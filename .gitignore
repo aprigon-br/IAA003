@@ -19,6 +19,10 @@
 /.streamlit/*
 !/.streamlit/config.toml
 
+# Scripts de reprodução da amostra (tamanho e sorteio)
+!/calcular_tamanho_amostra.py
+!/sortear_amostra.py
+
 # Dados
 !/dataset.txt
 !/amostra.txt
