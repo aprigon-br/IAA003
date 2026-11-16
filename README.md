@@ -129,7 +129,8 @@ A amostra foi dimensionada para **estimar uma proporção**, com os parâmetros 
 **Conferência:**
 - Calculadora on-line [Comentto — Calculadora Amostral](https://comentto.com/calculadora-amostral/). A
   calculadora da USP/Bauru sugerida no enunciado estava fora do ar em 11/11/2026.
-- A mesma fórmula, calculada em Python. Os dois deram n = 358.
+- A mesma fórmula, calculada em Python no script [`calcular_tamanho_amostra.py`](calcular_tamanho_amostra.py), que
+  também gera a tabela de sensibilidade abaixo. Os dois deram n = 358.
 
 **Sensibilidade:** como n muda com os parâmetros (p = 50%, N = 5.124).
 
@@ -149,16 +150,117 @@ A mesma amostra é usada nos testes de média. A precisão alcançada para cada 
 | **Probabilidade de seleção** | Igual para todas: 358 / 5.124 = **6,99%** |
 | **Ferramenta** | Python, função `DataFrame.sample(n=358, replace=False, random_state=20261111)` do pandas, que usa o gerador de números aleatórios do NumPy |
 | **Semente aleatória** | **20261111**, a data do sorteio (11/11/2026), escolhida antes de ver o resultado e não alterada depois |
-| **Como reproduzir** | `pd.read_csv("dataset.txt", sep="\t").sample(n=358, replace=False, random_state=20261111)` |
+| **Script** | [`sortear_amostra.py`](sortear_amostra.py) |
 | **Resultado** | [`amostra.txt`](amostra.txt): 358 buscas no mesmo formato do `dataset.txt` |
 
-**Reprodutibilidade:** a semente fixa faz o gerador produzir sempre a mesma sequência de sorteios, então quem aplicar
-o comando acima ao `dataset.txt` obtém exatamente as mesmas 358 buscas do `amostra.txt`. Isso foi conferido rodando o sorteio duas vezes: os dois arquivos ficaram idênticos.
+### 8.1 O que é a semente aleatória
 
-**Conferências:**
+O computador não sorteia "de verdade". Ele usa uma **fórmula matemática** (um gerador de números pseudoaleatórios)
+que, a partir de um número inicial, produz uma sequência longa de números que *parecem* aleatórios. Esse número
+inicial é a **semente**.
+
+**A mesma semente produz sempre a mesma sequência,** e portanto o mesmo sorteio. Uma analogia: imagine as 5.124
+buscas como cartas de um baralho e a semente como o número de uma "receita de embaralhar".
+- A receita nº 20261111 sempre deixa as cartas na mesma ordem.
+- Outra receita (outra semente) produz uma ordem completamente diferente.
+- As 358 cartas de cima, depois de embaralhar com a receita 20261111, são sempre as mesmas.
+
+Os números gerados passam nos testes estatísticos de aleatoriedade, e cada busca continua com a mesma chance de ser
+escolhida. Por isso o resultado é uma amostra aleatória simples válida. A semente fixa só acrescenta uma propriedade:
+o sorteio pode ser **repetido e conferido** por qualquer pessoa.
+
+### 8.2 Onde a semente está guardada e como o sorteio está codificado
+
+A semente não fica guardada em nenhum lugar escondido, e o computador não "lembra" dela. Ela está **escrita no
+código** do script [`sortear_amostra.py`](sortear_amostra.py):
+
+```python
+TAMANHO_AMOSTRA = 358   # linha 23: calculado em calcular_tamanho_amostra.py
+SEMENTE = 20261111      # linha 24: data do sorteio; fixa para o sorteio ser reproduzível
+
+# linha 38: o sorteio
+amostra = populacao.sample(n=TAMANHO_AMOSTRA, replace=False, random_state=SEMENTE)
+```
+
+Nessa linha 38, o pandas faz três coisas:
+1. **Cria o gerador** de números pseudoaleatórios a partir da semente 20261111 (o gerador do NumPy).
+2. **Sorteia 358 posições diferentes** entre as 5.124 linhas do `dataset.txt`. `replace=False` impede que a mesma
+   busca saia duas vezes, e cada busca tem a mesma chance: 358/5.124 = 6,99%.
+3. **Copia as linhas** dessas posições para a amostra, na ordem em que foram sorteadas, e o script grava o
+   resultado em `amostra.txt`.
+
+A semente também está documentada nesta seção e na página inicial dos painéis.
+
+### 8.3 Onde fica a relação das buscas que caíram na amostra
+
+Fica no próprio [`amostra.txt`](amostra.txt), que tem as 358 linhas sorteadas, **completas e idênticas** às do
+`dataset.txt` (mesmas 14 colunas), na ordem do sorteio.
+
+A ligação entre os dois arquivos é a coluna **`id`**, um código único para cada busca. O mesmo `id` aparece nos dois
+arquivos, então para saber de onde veio uma linha da amostra basta procurar o `id` dela no `dataset.txt`. As três
+primeiras buscas sorteadas:
+
+| Ordem do sorteio | Registro da população | Linha no `dataset.txt` | `id` | Nicho | Busca |
+|---|---|---|---|---|---|
+| 1º | nº 4.611 | 4.612 | `cmuz3j61900540xqt1474bfm7` | Roupas femininas | conjuntos femininos alfaiataria |
+| 2º | nº 4.920 | 4.921 | `cmuz3ldry00mb0xqtflfwzets` | Suplementos alimentares | creatina monohidratada micronizada |
+| 3º | nº 582 | 583 | `cmuz4125t03220xqt1chzbv45` | Autoelétrica | consertar motor de arranque |
+
+A linha no arquivo é o número do registro + 1, porque a primeira linha do `dataset.txt` é o cabeçalho.
+
+Não existe um arquivo separado com a lista das posições sorteadas, e ele não é necessário: a relação já está no
+`amostra.txt` (pela coluna `id`), e a lista pode ser recriada a qualquer momento com a semente.
+
+### 8.4 Como reproduzir e conferir a amostra
+
+**Opção 1, rodar o script.** O script lê o `dataset.txt`, refaz o sorteio e regrava o `amostra.txt`, que sai idêntico
+ao publicado:
+
+```bash
+python sortear_amostra.py
+```
+
+**Opção 2, conferir sem regravar nada.** O código abaixo refaz o sorteio e compara com o `amostra.txt` publicado:
+
+```python
+import pandas as pd
+
+pop = pd.read_csv("dataset.txt", sep="\t", dtype=str, keep_default_na=False)
+amo = pd.read_csv("amostra.txt", sep="\t", dtype=str, keep_default_na=False)
+
+nova = pop.sample(n=358, replace=False, random_state=20261111)
+print(nova["id"].tolist() == amo["id"].tolist())   # True: mesmas 358 buscas, na mesma ordem
+print(nova.index[:3] + 1)                           # registros sorteados: 4611, 4920, 582
+```
+
+**Para o sorteio sair igual, três coisas precisam ser mantidas:**
+1. **A mesma semente** (20261111).
+2. **O mesmo `dataset.txt`, com as linhas na mesma ordem.** A população foi congelada em 11/11/2026 por isso:
+   mudar a ordem das linhas muda quais buscas ocupam cada posição.
+3. **O mesmo método** (`DataFrame.sample` do pandas com `random_state` inteiro). O gerador usado por ele produz
+   sempre a mesma sequência para a mesma semente, mesmo em versões diferentes.
+
+**O que muda com outra semente:** com a semente 20261112, por exemplo, a amostra seria outra. Só 26 das 358 buscas
+coincidiriam, o que é o esperado por puro acaso (358 × 358 / 5.124 ≈ 25). A semente é o que identifica **qual** das
+muitas amostras possíveis foi a usada no trabalho.
+
+**Honestidade do sorteio:** a semente foi escolhida antes de ver o resultado e nunca foi trocada. Testar várias
+sementes até aparecer uma amostra "bonita" seria manipular o sorteio, e a amostra deixaria de ser aleatória.
+
+### 8.5 Conferências feitas
+
 - 358 linhas, nenhuma busca repetida.
 - Todas as linhas são idênticas a linhas do `dataset.txt`.
 - A amostra contém buscas de 125 dos 137 nichos.
+- Rodando o sorteio duas vezes, os dois arquivos gerados ficaram idênticos.
+
+### 8.6 Outras sementes que aparecem no trabalho
+
+Elas não têm relação com a amostra oficial:
+- **Semente 2026,** em `inferencia.py`: usada só na **simulação das 1.000 amostras** do painel de inferência, que
+  mostra a variabilidade amostral.
+- **Botão "Sortear nova amostra",** no painel de inferência: usa uma semente nova a cada clique e mostra essa semente
+  na tela. É só para experimentar; a amostra oficial continua sendo a do `amostra.txt`.
 
 ## 9. Dicionário completo do arquivo
 
