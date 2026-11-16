@@ -3,6 +3,8 @@
 Trabalho final da disciplina **Probabilidade e Estatística para IA (IAA003)**, pós-graduação em IA Avançada:
 amostragem, intervalos de confiança e testes de hipóteses, comparando população e amostra.
 
+Aluna: Ana Paula Rigon
+
 > **Painéis (Streamlit Cloud):** https://iaa003-buscas.streamlit.app
 > 1. Análise descritiva da população: https://iaa003-buscas.streamlit.app/populacao
 > 2. Análise descritiva da amostra: https://iaa003-buscas.streamlit.app/amostra
