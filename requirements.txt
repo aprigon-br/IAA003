@@ -1,0 +1,10 @@
+# Bibliotecas usadas pelos painéis (o Streamlit Cloud instala estas)
+streamlit>=1.50
+pandas
+numpy
+scipy
+plotly
+altair>=5.0
+
+# Só para gerar_dataset.py, que acessa o banco e NÃO é usado pelos painéis
+# (instalar à parte se precisar): psycopg[binary]

@@ -1,0 +1,28 @@
+# Lista de liberação: TUDO fica fora do repositório, exceto o que está liberado abaixo (linhas com "!").
+# Assim, arquivos novos (manuais, roteiros, acessos.txt...) nunca sobem por engano.
+/*
+
+# Documentação
+!/.gitignore
+!/README.md
+
+# App dos painéis (Streamlit Cloud)
+!/requirements.txt
+!/app.py
+!/painel_comum.py
+!/estatistica.py
+!/inferencia.py
+!/paginas/
+/paginas/*
+!/paginas/*.py
+!/.streamlit/
+/.streamlit/*
+!/.streamlit/config.toml
+
+# Dados
+!/dataset.txt
+!/amostra.txt
+
+# Nunca, em nenhuma pasta
+__pycache__/
+secrets.toml
