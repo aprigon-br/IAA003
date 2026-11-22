@@ -7,6 +7,8 @@
 !/README.md
 !/dataset_manual.docx
 !/dataset_dicionario_observatorio_tabelas_buscas_nichos.docx
+!/dataset_manual.md
+!/dataset_dicionario_observatorio_tabelas_buscas_nichos.md
 
 # App dos painéis (Streamlit Cloud)
 !/requirements.txt
