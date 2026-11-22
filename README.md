@@ -30,6 +30,52 @@ O banco original é privado. O `dataset.txt` é a cópia integral da tabela no d
 usada no trabalho. Os volumes e lances vêm da coleta semanal do Google; as buscas foram cadastradas entre 08 e
 25/10/2026.
 
+### 1.1 O arquivo dataset.txt
+
+O arquivo `dataset.txt` contém dados de buscas/pesquisas no Google, e foi criado por mim especialmente para este
+trabalho.
+
+### 1.2 Origem dos dados do dataset
+
+Os dados vêm de duas origens: **a) Observatório Lucro Digital** e **b) Google Ads API / Google Keyword Planner**.
+
+#### a) Observatório Lucro Digital
+
+A empresa Lucro Digital, que atua no ramo de consultoria em Marketing Digital, possui um sistema chamado "Observatorio Lucro Digital", que possui um banco de dados privado utilizado em seus analytics.
+A empresa autorizou realizar consulta somente leitura em seu banco de dados, para extração de um dataset, com foco principal na tabela que possui dados públicos coletados diretamente do Google sobre "buscas". 
+
+Sendo assim, o `dataset.txt` utilizado no trabalho foi criado a partir do banco de dados do "Observatório Lucro Digital", que é o
+centro de pesquisa de mercado da empresa. Toda semana um job executa a extração de dados do Google e grava os
+resultados num banco de dados PostgreSQL, na tabela "buscas". Para cada "busca" ficam registrados o volume mensal de
+pesquisas no Brasil, o id do nicho, a faixa de lance e o índice de concorrência.
+
+Como o banco de dados do Observatório é privado e não tem acesso público, além de ser atualizado toda semana, no dia
+11/11/2026 foi extraída a tabela "buscas" completa (5.124 buscas e 12 colunas), sem filtros e sem alterar nenhum valor. No
+SQL foi cruzado o id do nicho da tabela "buscas" com outra tabela, "nichos", para introduzir duas novas colunas no dataset, com o nome do nicho e o "publico"
+(tipo de público), as duas únicas colunas de categorização acrescentadas. Com elas, o dataset ficou com 14
+variáveis. O resultado foi publicado no GitHub para que a base pudesse ser "congelada" e consultada, e foi este dataset
+utilizado no trabalho.
+
+- Base: https://github.com/aprigon-br/IAA003/blob/main/dataset.txt
+- Manual do dataset (formato do arquivo, descrição das colunas, resumo e exemplos de linhas):
+  https://github.com/aprigon-br/IAA003/blob/main/dataset_manual.docx
+- Dicionário de dados das tabelas "buscas" e "nichos" que foram consultadas para criar o dataset:
+  https://github.com/aprigon-br/IAA003/blob/main/dataset_dicionario_observatorio_tabelas_buscas_nichos.docx
+
+#### b) Google Ads API do Planejador de palavras-chave do Google (Google Keyword Planner)
+
+Os dados da tabela "buscas" do Observatório vêm da Google Ads API, da ferramenta Planejador de palavras-chave do
+Google (Google Keyword Planner). É a base oficial do Google sobre o volume de pesquisas, o custo por clique (lance) e
+a concorrência entre anunciantes.
+
+- Link para a ferramenta do Google: https://ads.google.com/home/tools/keyword-planner/
+- API: https://developers.google.com/google-ads/api/docs/keyword-planning/overview
+
+A tabela "nichos" é criada pelo Observatório com categorizações de nichos de negócios, baseadas em dados da Receita
+Federal, inferências do Gemini e dados de clientes para agrupamento de atividades de negócios similares em um mesmo
+nicho dentro do contexto da empresa. Esta classificação é específica da empresa Lucro Digital, e é baseada em padrões
+de mercado e critérios próprios da empresa.
+
 ## 2. Contexto e objetivo da base
 
 O **Observatório** é o centro de pesquisa de mercado da Lucro Digital, uma agência de marketing digital. Toda

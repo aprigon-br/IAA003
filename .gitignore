@@ -5,6 +5,8 @@
 # Documentação
 !/.gitignore
 !/README.md
+!/dataset_manual.docx
+!/dataset_dicionario_observatorio_tabelas_buscas_nichos.docx
 
 # App dos painéis (Streamlit Cloud)
 !/requirements.txt
