@@ -5,10 +5,6 @@
 Extrato do Dicionário de dados do Observatório com as duas tabelas do banco que foram consultadas para gerar o
 [`dataset.txt`](dataset.txt) do trabalho final de IAA003: `observatorio.buscas` e `observatorio.nichos`.
 
-> Versão em Markdown do arquivo
-> [`dataset_dicionario_observatorio_tabelas_buscas_nichos.docx`](dataset_dicionario_observatorio_tabelas_buscas_nichos.docx),
-> para leitura direta no GitHub.
-
 | | |
 |---|---|
 | **Banco** | Postgres de produção (Railway), schema `observatorio` |
@@ -66,16 +62,7 @@ ORDER BY n.nome, b.volume_brasil DESC NULLS LAST, b.id
 Em destaque, as duas colunas que vêm da tabela `nichos`. As outras 12 são todas as colunas da tabela `buscas`, sem
 alteração nos valores.
 
-## 3. Como ler as tabelas
-
-- **Preenchimento:** "sempre preenchida" = a coluna nunca fica vazia. "Pode ficar vazia" = pode ter NULL (sem valor),
-  por exemplo quando o Google não informou o lance.
-- **Chave:** as colunas marcadas como CHAVE identificam a linha: a combinação delas não se repete na tabela. ÚNICA
-  indica outra coluna que também não se repete.
-- **Ligações:** colunas terminadas em `_id` apontam para outra tabela: `nicho_id → nichos.id`.
-- **Datas e horas:** estão em UTC; o horário de Brasília é 3 horas a menos.
-- **Listas fixas (enum):** só aceitam os valores listados na descrição, em maiúsculas, como `SERVICOS` e `ECOMMERCE`.
-- **NO DATASET / USADA NA LIGAÇÃO:** marcam as colunas da tabela `nichos` que foram usadas para gerar o dataset.txt.
+## 3. Tipos de dados das Tabelas
 
 ### Tipos de dado que aparecem nas duas tabelas
 
@@ -137,7 +124,7 @@ nicho.
 | `criado_em` | `timestamp(3)` (data e hora, em UTC) | sempre preenchida | Quando a busca entrou. |
 | `atualizado_em` | `timestamp(3)` (data e hora, em UTC) | sempre preenchida | Última alteração na linha. |
 
-## 5. Tabela de nichos (de onde vem o nome do nicho)
+## 5. Tabela de nichos
 
 `observatorio.nichos`
 
@@ -151,18 +138,15 @@ como proposta e só entra na coleta semanal e no Mapa depois de aprovado na revi
 - **Receita Federal (CNPJ):** atividades CNAE com mais empresas ativas, ponto de partida dos nichos de serviços (etapa
   catálogo).
 - **Google (taxonomia de produtos):** categorias de produtos, ponto de partida dos nichos de e-commerce.
-- **Gemini:** agrupa as atividades em nichos, avalia se vale anunciar (anunciável, motivo) e sugere o nicho mais
-  próximo nos pedidos de lead.
-- **Mapa do Dinheiro:** pedidos de nicho novo feitos pelos leads (contagem pedidos).
-- **Painel e API do analisadorLD:** nichos criados à mão, aprovações, junções e recusas.
+- **Sistema Lucro Digital:** agrupa as atividades em nichos, avalia se vale anunciar (anunciável, motivo) e sugere o
+  nicho mais próximo nos pedidos de lead. Avalia e armazena pedidos de nicho novo feitos pelos leads (contagem
+  pedidos).
 
 **Quando é atualizada**
 
 - Criada pela etapa catálogo, uma vez, na montagem do catálogo (cerca de 80 nichos de serviços e 20 de e-commerce).
-- Nichos novos entram por pedido de lead no Mapa, pelo painel (Catálogo → Novo nicho) ou pela API do analisadorLD,
-  sempre como PROPOSTO.
-- Status, junções e aprovações mudam na revisão de segunda, no painel.
-- Domingo: a etapa direcao atualiza `direcao_em`. A contagem pedidos sobe a cada lead que pede o nicho.
+- Nichos novos entram por pedido de lead, sempre como PROPOSTO.
+- Status, junções e aprovações mudam na revisão.
 
 | | |
 |---|---|
@@ -178,17 +162,17 @@ como proposta e só entra na coleta semanal e no Mapa depois de aprovado na revi
 | `slug` · ÚNICA | `text` (texto) | sempre preenchida | Nome curto e único do nicho, usado nos endereços do Mapa. |
 | **`nome`** · **NO DATASET** como `nicho` | `text` (texto) | sempre preenchida | Nome do nicho como aparece para as pessoas. |
 | **`publico`** · **NO DATASET** | `PublicoNicho` (lista fixa de valores) | sempre preenchida | Tipo de negócio: SERVICOS (atende clientes, como uma clínica) ou ECOMMERCE (vende produtos online). |
-| `status` | `StatusNicho` (lista fixa de valores) | sempre preenchida | PROPOSTO: sugerido, espera a revisão de segunda.<br>ATIVO: entra na coleta semanal e no Mapa.<br>RECUSADO: não entra. Padrão: PROPOSTO. |
-| `origem` | `OrigemNicho` (lista fixa de valores) | sempre preenchida | De onde veio: CNAE (atividades com mais empresas na Receita Federal), TAXONOMIA (categoria de produtos do Google, para e-commerce), LEAD (pedido de um lead do Mapa) ou MANUAL. |
-| `cnaes` | `text[]` (lista de textos) | pode ficar vazia | Códigos CNAE (7 dígitos) das atividades que representam a concorrência física do nicho. No e-commerce, as do varejo físico equivalente. Liga com `empresas.cnae`. Padrão: lista vazia. |
+| `status` | `StatusNicho` (lista fixa de valores) | sempre preenchida | PROPOSTO: sugerido, espera a revisão de segunda.<br>ATIVO: entra na coleta semanal.<br>RECUSADO: não entra. |
+| `origem` | `OrigemNicho` (lista fixa de valores) | sempre preenchida | De onde veio: CNAE (atividades com mais empresas na Receita Federal), TAXONOMIA (categoria de produtos do Google, para e-commerce), LEAD (pedido de um) ou MANUAL. |
+| `cnaes` | `text[]` (lista de textos) | pode ficar vazia | Códigos CNAE (7 dígitos) das atividades que representam a concorrência física do nicho. |
 | `categoria_google` | `integer` (número inteiro) | pode ficar vazia | Só e-commerce: número da categoria na taxonomia de produtos do Google. |
-| `sinonimos` | `text[]` (lista de textos) | pode ficar vazia | Outros nomes do nicho. Viram ponto de partida (sementes) para descobrir as buscas. Padrão: lista vazia. |
-| `anunciavel` | `boolean` (sim / não) | pode ficar vazia | Avaliação do Gemini quando o nicho foi proposto: se faz sentido anunciar no Google para esse ramo. |
+| `sinonimos` | `text[]` (lista de textos) | pode ficar vazia | Outros nomes do nicho. |
+| `anunciavel` | `boolean` (sim / não) | pode ficar vazia | Avaliação quando o nicho foi proposto: se faz sentido anunciar no Google para esse ramo. |
 | `motivo` | `text` (texto) | pode ficar vazia | O porquê da avaliação acima. |
-| `empresas` | `integer` (número inteiro) | pode ficar vazia | Empresas ativas no Brasil somando as atividades CNAE do nicho, calculado quando o nicho entrou no catálogo (etapa catalogo). O número atualizado todo mês, por região, fica na tabela empresas. |
-| `juntado_a` | `text` (texto) | pode ficar vazia | Se este nicho foi juntado a outro na revisão, o slug do nicho que ficou. |
-| `proximo_slug` | `text` (texto) | pode ficar vazia | Em pedidos de lead: o nicho do catálogo mais parecido, sugerido pelo Gemini para a revisão de segunda. |
-| `pedidos` | `integer` (número inteiro) | sempre preenchida | Quantos leads do Mapa pediram este nicho. Eles são avisados quando o nicho entra. Padrão: 0. |
+| `empresas` | `integer` (número inteiro) | pode ficar vazia | Empresas ativas no Brasil somando as atividades CNAE do nicho, calculado quando o nicho entrou no catálogo (etapa catalogo). |
+| `juntado_a` | `text` (texto) | pode ficar vazia | slug do nicho que ficou, após junções. |
+| `proximo_slug` | `text` (texto) | pode ficar vazia | Para pedidos de lead: o nicho do catálogo mais parecido. |
+| `pedidos` | `integer` (número inteiro) | sempre preenchida | Quantos leads pediram o nicho. |
 | `criado_em` | `timestamp(3)` (data e hora, em UTC) | sempre preenchida | Quando o nicho foi criado. |
 | `atualizado_em` | `timestamp(3)` (data e hora, em UTC) | sempre preenchida | Última alteração na linha (preenchido automaticamente). |
 | `aprovado_em` | `timestamp(3)` (data e hora, em UTC) | pode ficar vazia | Quando o nicho foi aprovado (virou ATIVO). |
@@ -205,9 +189,6 @@ como proposta e só entra na coleta semanal e no Mapa depois de aprovado na revi
 | **Lance do topo da página** | Faixa de valor por clique que os anunciantes costumam pagar para o anúncio aparecer no alto da página do Google. |
 | **Concorrência (0 a 100)** | Índice do Google que mostra quantos anunciantes disputam a busca, comparado com as demais. |
 | **CNAE** | Código oficial da atividade econômica de uma empresa (7 dígitos). Ex.: 5611201 = restaurantes. |
-| **Negativa** | Palavra que se exclui de uma campanha de Google Ads para não pagar por cliques de quem não vai comprar. |
-| **Etapa** | Uma tarefa do Observatório (coleta, modelo, pacotes...). |
-| **cuid** | Formato dos identificadores internos: um texto de 25 caracteres que começa com c, gerado automaticamente. |
 | **UTC** | Horário universal. As colunas de data e hora estão em UTC; o horário de Brasília é 3 horas a menos. |
 
 ---

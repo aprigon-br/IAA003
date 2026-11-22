@@ -2,8 +2,6 @@
 
 **`dataset.txt` · buscas do Google por ramo de negócio**
 
-> Versão em Markdown do arquivo [`dataset_manual.docx`](dataset_manual.docx), para leitura direta no GitHub.
-
 ## 1. O que é este dataset
 
 O [`dataset.txt`](dataset.txt) reúne as buscas do Google que representam cada ramo de negócio (nicho) acompanhado pelo
@@ -46,8 +44,8 @@ em configurações regionais, use o ponto como separador decimal (senão 1.21 po
 
 | # | Coluna | Tipo | Exemplo / valores | O que significa | Vazios |
 |---|---|---|---|---|---|
-| 1 | `id` | texto (25 caracteres) | `cmuz3udlr025m0xqtz25zzi58` | Identificador único da busca (formato cuid). | 0 |
-| 2 | `nicho_id` | texto (25 ou 36 caracteres) | `cmuz3hysl001f0xqtyps0nu7d` | Identificador do nicho. Quase sempre cuid (25); 2 nichos criados depois usam UUID (36, ex.: `5b3626f3-999e-…`). | 0 |
+| 1 | `id` | texto (25 caracteres) | `cmuz3udlr025m0xqtz25znj58` | Identificador único da busca (formato cuid). | 0 |
+| 2 | `nicho_id` | texto (25 ou 36 caracteres) | `cmuz3hysl001f0xqtyps0na7x` | Identificador do nicho. Quase sempre cuid (25); 2 nichos criados depois usam UUID (36, ex.: `5b3626f3-999e-…`). | 0 |
 | 3 | `nicho` | texto | Academia de ginástica | Nome do ramo de negócio (137 nichos). | 0 |
 | 4 | `publico` | categoria | `SERVICOS` / `ECOMMERCE` | Tipo de negócio: atende clientes (serviços) ou vende online. | 0 |
 | 5 | `texto` | texto (minúsculas) | academia perto de mim | A busca, como o Google a devolve. | 0 |
@@ -86,21 +84,21 @@ partes; a coluna **Linha** (posição no arquivo, sem contar o cabeçalho) liga 
 
 | Linha | id | nicho_id | nicho | publico | texto |
 |---:|---|---|---|---|---|
-| 195 | `cmuz3ra2u01jj0xqtju0w4f7s` | `cmuz3hys900180xqtfwaeisz6` | Agência de viagens e turismo | SERVICOS | pesquisar passagens aereas baratas |
-| 616 | `cmuz433nn03jc0xqtainqg02c` | `cmuz3hyut002q0xqtd48p1eon` | Autoescola | SERVICOS | carteira de habilitação preço |
-| 1261 | `cmv11g2ir00150ys9xyd3974f` | `5b3626f3-999e-4df3-a929-80a50939e34d` | Consórcio | SERVICOS | consorcio carro |
-| 1375 | `cmuz3o43w015q0xqtmi6825di` | `cmuz3hyrb000o0xqtrvbdu9ch` | Consultoria empresarial | SERVICOS | empresa de consultoria financeira empresarial |
-| 2002 | `cmuz3yrjj02s80xqtp3hdc6vw` | `cmuz3hytx00280xqtj2f7fdoe` | Encanador | SERVICOS | preço de caça vazamento |
-| 2361 | `cmuz3vl8602bu0xqt24vk5ppp` | `cmuz3hywk003n0xqt9qfmi93d` | Ferramentas | ECOMMERCE | parafusadeira da makita |
-| 2572 | `cmuz3o43d012c0xqtm8790krq` | `cmuz3hyr5000l0xqtc56746bz` | Home care e enfermagem domiciliar | SERVICOS | cuidadora home care |
-| 2957 | `cmuz3wu2q02fo0xqtbu23j3nf` | `cmuz3hyuc002g0xqt9zyx630y` | Locação de máquinas para construção | SERVICOS | aluguel betoneira 400 litros |
-| 3781 | `cmuz3yrj702pp0xqtoq5f1oda` | `cmuz3hytd001x0xqtz64qcfkv` | Oficina de motos | SERVICOS | oficina de moto perto |
-| 3958 | `cmuz3vl7o028r0xqtxo2psykn` | `cmuz3hysp001i0xqtcv3y65mo` | Ótica | SERVICOS | armação oculos grau masculino |
-| 4056 | `cmuz3xrju02nu0xqt8we6idw7` | `cmuz3hyt6001t0xqtybpvto7v` | Papelaria | SERVICOS | estojo quadrado barato |
-| 4243 | `cmuz3o43p013x0xqttdw8nfqu` | `cmuz3hyro000w0xqt0tuq8jxv` | Pet shop e banho e tosa | SERVICOS | pet shop perto de mim banho e tosa |
-| 4414 | `cmvlggerb00870zr3tgv6i5eh` | `cmvlf5if800070wqlnxiyf0zu` | Pneus para caminhão | ECOMMERCE | pneus michelin 215 75r17 5 |
-| 4612 | `cmuz3j61900570xqti3enbjgw` | `cmuz3hyvo00370xqty5zkzfww` | Roupas femininas | ECOMMERCE | conjunto feminino calça e blusa |
-| 5084 | `cmuz3mees00ud0xqtv29kdfkn` | `cmuz3hywc003i0xqtvfge6ey0` | Videogames e consoles | ECOMMERCE | nintendo switch 64gb |
+| 195 | `cmuz3rb2u01jj0xqtju0w4f7a` | `cmuz3hys900180xqtfwaeisz6` | Agência de viagens e turismo | SERVICOS | pesquisar passagens aereas baratas |
+| 616 | `cmuz433jn03jc0xqtaicqg02c` | `cmuz3hyut002q0xqtd48p1eon` | Autoescola | SERVICOS | carteira de habilitação preço |
+| 1261 | `cmv11g2ir00150yc9xyd3974f` | `5b3626f3-999e-4df3-a929-80a50939e34d` | Consórcio | SERVICOS | consorcio carro |
+| 1375 | `cmuz3o43w015q0nqtmi6825di` | `cmuz3hyrb000o0xqirvbdu9ch` | Consultoria empresarial | SERVICOS | empresa de consultoria financeira empresarial |
+| 2002 | `cmuz3yrjj02s80nqtp3hdc6vw` | `cmuz3hytx00280xqtj2f7fdoe` | Encanador | SERVICOS | preço de caça vazamento |
+| 2361 | `cmuz3vl8602bu0xxt24vk5ppp` | `cmuz3hywk003n0xql9qfmi93d` | Ferramentas | ECOMMERCE | parafusadeira da makita |
+| 2572 | `cmuz3o43d012c0xqtu8790krq` | `cmuz3hyr5000l0xqtc56746bz` | Home care e enfermagem domiciliar | SERVICOS | cuidadora home care |
+| 2957 | `cmuz3wu2q02fo0xqcbu23j3nf` | `cmuz3hyuc002g0xqtmzyx630y` | Locação de máquinas para construção | SERVICOS | aluguel betoneira 400 litros |
+| 3781 | `cmuz3yrj702pp0xqtdq5f1oda` | `cmuz3hytd001x0xqtz64qnfkv` | Oficina de motos | SERVICOS | oficina de moto perto |
+| 3958 | `cmuz3vl7o028r0xqtxo2psykn` | `cmuz3hysp001i0xqtcv3y65mp` | Ótica | SERVICOS | armação oculos grau masculino |
+| 4056 | `cmuz3xrju02nu0xqt8he6idw7` | `cmuz3hyt6001t0xqtybpvto7q` | Papelaria | SERVICOS | estojo quadrado barato |
+| 4243 | `cmuz3o43p013x0xqttdf8nfqu` | `cmuz3hyro000w0xqt0ruq8jxv` | Pet shop e banho e tosa | SERVICOS | pet shop perto de mim banho e tosa |
+| 4414 | `cmvlggerb00870zr3tgr6i5eh` | `cmvlf5if800070wqlnxsyf0zu` | Pneus para caminhão | ECOMMERCE | pneus michelin 215 75r17 5 |
+| 4612 | `cmuz3j61900570xqti3gnbjgw` | `cmuz3hyvo00370xqty5zkrfww` | Roupas femininas | ECOMMERCE | conjunto feminino calça e blusa |
+| 5084 | `cmuz3mees00ud0xqtv29hdfkn` | `cmuz3hywc003i0xqtvfge6uy0` | Videogames e consoles | ECOMMERCE | nintendo switch 64gb |
 
 ### Parte B: medidas e controle
 
