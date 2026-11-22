@@ -21,7 +21,7 @@ aparecer nessas pesquisas.
 **Fonte primária dos números de busca:** Google Ads API, ferramenta Planejador de palavras-chave (Keyword Planner). É
 dela que vêm o volume mensal de pesquisas, a faixa de lance e o índice de concorrência de cada busca.
 
-As descrições das duas tabelas e de suas colunas reproduzem, sem alterações, o texto do dicionário original; as
+As descrições das duas tabelas e de suas colunas reproduzem o texto do dicionário original, com alguns trechos resumidos; as
 marcações sobre o uso no dataset foram acrescentadas neste extrato. O dicionário completo descreve as 20 tabelas do
 schema `observatorio`; as outras 18 não foram usadas no trabalho.
 
@@ -163,7 +163,7 @@ como proposta e só entra na coleta semanal e no Mapa depois de aprovado na revi
 | **`nome`** · **NO DATASET** como `nicho` | `text` (texto) | sempre preenchida | Nome do nicho como aparece para as pessoas. |
 | **`publico`** · **NO DATASET** | `PublicoNicho` (lista fixa de valores) | sempre preenchida | Tipo de negócio: SERVICOS (atende clientes, como uma clínica) ou ECOMMERCE (vende produtos online). |
 | `status` | `StatusNicho` (lista fixa de valores) | sempre preenchida | PROPOSTO: sugerido, espera a revisão de segunda.<br>ATIVO: entra na coleta semanal.<br>RECUSADO: não entra. |
-| `origem` | `OrigemNicho` (lista fixa de valores) | sempre preenchida | De onde veio: CNAE (atividades com mais empresas na Receita Federal), TAXONOMIA (categoria de produtos do Google, para e-commerce), LEAD (pedido de um) ou MANUAL. |
+| `origem` | `OrigemNicho` (lista fixa de valores) | sempre preenchida | De onde veio: CNAE (atividades com mais empresas na Receita Federal), TAXONOMIA (categoria de produtos do Google, para e-commerce), LEAD (pedido de um lead) ou MANUAL. |
 | `cnaes` | `text[]` (lista de textos) | pode ficar vazia | Códigos CNAE (7 dígitos) das atividades que representam a concorrência física do nicho. |
 | `categoria_google` | `integer` (número inteiro) | pode ficar vazia | Só e-commerce: número da categoria na taxonomia de produtos do Google. |
 | `sinonimos` | `text[]` (lista de textos) | pode ficar vazia | Outros nomes do nicho. |
