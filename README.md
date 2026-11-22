@@ -58,9 +58,9 @@ utilizado no trabalho.
 
 - Base: https://github.com/aprigon-br/IAA003/blob/main/dataset.txt
 - Manual do dataset (formato do arquivo, descrição das colunas, resumo e exemplos de linhas):
-  https://github.com/aprigon-br/IAA003/blob/main/dataset_manual.docx
+  https://github.com/aprigon-br/IAA003/blob/main/dataset_manual.md
 - Dicionário de dados das tabelas "buscas" e "nichos" que foram consultadas para criar o dataset:
-  https://github.com/aprigon-br/IAA003/blob/main/dataset_dicionario_observatorio_tabelas_buscas_nichos.docx
+  https://github.com/aprigon-br/IAA003/blob/main/dataset_dicionario_observatorio_tabelas_buscas_nichos.md
 
 #### b) Google Ads API do Planejador de palavras-chave do Google (Google Keyword Planner)
 
